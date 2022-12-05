@@ -36,9 +36,8 @@
             height: 80px;
             opacity: 0.3;
         }
-        h2, h3, p, span{
-            color: white;
-        }
+        h2, h3, p, span{ color: white; }
+        button{ height: 35px; font-size: 18px; }
     </style>
     <script>        
         let isFlag = false;
@@ -157,22 +156,22 @@
     <div id="wrapper">
         <div id="unit">            
             <div style="margin-bottom: 10px;">
-                <p>캐릭터 : 
+                <button onclick="fncUnitAllSelect(this)">캐릭터 전체 선택</button>
+                <p> 
                     <span id="currUnit">0</span>
                     <span> / </span>
                     <span id="maxUnit"></span>
                 </p>
-                <button onclick="fncUnitAllSelect(this)">캐릭터 전체 선택</button>
             </div>
         </div>
         <div id="ark">     
             <div style="margin-bottom: 10px;">
-                <p>아크 : 
+                <button onclick="fncArkAllSelect(this, '#ark')">아크 전체 선택</button>
+                <p> 
                     <span id="currArk">0</span>
                     <span> / </span>
                     <span id="maxArk"></span>
                 </p>
-                <button onclick="fncArkAllSelect(this, '#ark')">아크 전체 선택</button>
             </div>    
         </div>
     </div>
