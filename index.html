@@ -17,16 +17,17 @@
             justify-content: center;
             align-items: center;
             padding: 60px;
-            height: 10%;
+            height: 5%;
         }
         #wrapper{
             display: flex; 
             justify-content: center;
             align-items: center; 
             width: 100%; 
-            height: 100%;        
+            height: 90%;        
         }
-        #wrapper div{
+        #wrapper > div{
+            height: 100%;
             width: 50%;
             padding: 30px;
         }
@@ -150,25 +151,29 @@
         <div>
             <h2>LastCloudia Check List</h2>                        
             <p>Created by 반갑다친구야</p>
-            <p>모바일 UI 안했으니 PC로 보세요.</p>
-            <p>캐릭터 : 
-                <span id="currUnit">0</span>
-                <span> / </span>
-                <span id="maxUnit"></span>
-            </p>
-            <p>아크 : 
-                <span id="currArk">0</span>
-                <span> / </span>
-                <span id="maxArk"></span>
-            </p>
-            <div style="margin-bottom: 10px;"><button onclick="fncUnitAllSelect(this)">캐릭터 전체 선택</button></div>
-            <div><button onclick="fncArkAllSelect(this, '#ark')">아크 전체 선택</button></div>            
+            <p>CSS, 모바일 UI 안했으니 PC로 보는걸 그나마 추천 합니다.</p>                                
         </div>
     </div>
     <div id="wrapper">
-        <div id="unit">
+        <div id="unit">            
+            <div style="margin-bottom: 10px;">
+                <p>캐릭터 : 
+                    <span id="currUnit">0</span>
+                    <span> / </span>
+                    <span id="maxUnit"></span>
+                </p>
+                <button onclick="fncUnitAllSelect(this)">캐릭터 전체 선택</button>
+            </div>
         </div>
         <div id="ark">     
+            <div style="margin-bottom: 10px;">
+                <p>아크 : 
+                    <span id="currArk">0</span>
+                    <span> / </span>
+                    <span id="maxArk"></span>
+                </p>
+                <button onclick="fncArkAllSelect(this, '#ark')">아크 전체 선택</button>
+            </div>    
         </div>
     </div>
 </body>
