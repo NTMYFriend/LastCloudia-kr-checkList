@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LastCloudia-KR-CheckList</title>
+    <style>
+        html,body{
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            height: 100%;
+        }        
+        #header{
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 60px;
+            height: 10%;
+        }
+        #wrapper{
+            display: flex; 
+            justify-content: center;
+            align-items: center; 
+            width: 100%; 
+            height: 100%;        
+        }
+        #wrapper div{
+            width: 50%;
+            padding: 30px;
+        }
+        img{
+            width: 80px;
+            height: 80px;
+            opacity: 0.3;
+        }
+        h2, h3, p, span{
+            color: white;
+        }
+    </style>
+    <script>        
+        let isFlag = false;
+        let isCurrOpacity = false;
+        let selectUnitFlag = 0;
+        let selectArkFlag = 0;        
+        let currUnitCnt = 0;
+        let currArkCnt = 0;
+        let maxUnitCnt = 26;
+        let maxMonsterCnt = 9;
+        let totUnit = maxUnitCnt + maxMonsterCnt;
+        let rArk = 24;
+        let srArk = 21;
+        let ssrArk = 18;
+        let urArk = 0;
+        let lrArk = 0;        
+        let maxArkCnt = rArk + srArk + ssrArk + urArk + lrArk;
+        let unit = "";
+        let ark = "";
+        let arkClass = "";
+        let id = "";
+
+        document.addEventListener("DOMContentLoaded", function(){            
+            fncLoad();
+        });
+
+        function fncUnitSelect(target){        
+            isCurrOpacity = window.getComputedStyle(target).opacity >= 1;                        
+            currUnitCnt = Number(document.querySelector("#currUnit").innerHTML);
+            target.style.opacity = isCurrOpacity ? 0.3 : 1;        
+            document.querySelector("#currUnit").innerHTML = isCurrOpacity ? currUnitCnt-1 : currUnitCnt+1;
+            return false;
+        }
+
+        function fncArkSelect(target){        
+            isCurrOpacity = window.getComputedStyle(target).opacity >= 1;                        
+            currArkCnt = Number(document.querySelector("#currArk").innerHTML);
+            target.style.opacity = isCurrOpacity ? 0.3 : 1;        
+            document.querySelector("#currArk").innerHTML = isCurrOpacity ? currArkCnt-1 : currArkCnt+1;
+            
+            return false;
+        }
+
+        function fncUnitAllSelect(target){
+            isFlag = selectUnitFlag >= 1;
+            document.querySelectorAll("#unit > img").forEach(function(item){ item.style.opacity = isFlag ? 0.3 : 1; })             
+            selectUnitFlag = isFlag ? 0 : 1;     
+            txt = "캐릭터 전체" + (isFlag ? "해제" : "선택");            
+            target.innerText = txt;
+            document.querySelector("#currUnit").innerHTML = isFlag ? 0 : totUnit;
+            return false;
+        }
+
+        function fncArkAllSelect(target){
+            isFlag = selectArkFlag >= 1;
+            document.querySelectorAll("#ark > img").forEach(function(item){ item.style.opacity = isFlag ? 0.3 : 1; })             
+            selectArkFlag = isFlag ? 0 : 1;     
+            txt = "아크 전체" + (isFlag ? "해제" : "선택");            
+            target.innerText = txt;
+            document.querySelector("#currArk").innerHTML = isFlag ? 0 : maxArkCnt;
+            return false;
+        }
+
+        function fncLoad(){
+            const div_unit = document.querySelector("#unit");
+            const div_ark = document.querySelector("#ark");
+            document.querySelector("#maxUnit").innerHTML = totUnit;
+            document.querySelector("#maxArk").innerHTML = maxArkCnt;
+
+            // Unit =============================================================================================================================================
+            for(let i = 1; i <= maxUnitCnt + maxMonsterCnt; i++){        
+                if(i > maxUnitCnt){ 
+                    for(let j = 1; j <= maxMonsterCnt; j++){            
+                        id = "um" + j;                             
+                        unit  += '<img id="' + id +'" src="./unit/a'+ j +'.png" onclick="fncUnitSelect('+ id +')">';  
+                    }
+                    break;
+                }
+                else{ 
+                    id = "u" + i;
+                    unit  += '<img id="' + id +'" src="./unit/'+ i +'.png" onclick="fncUnitSelect('+ id +')">'; 
+                }
+            }
+            // Ark =============================================================================================================================================
+            id = "Ark";
+            if(rArk > 0 ){                
+                for(let i = 1; i <= rArk; ++i){ ark += '<img id="r'+ (id + i) +'" src="./ark/r/'+ i +'.png" onclick="fncArkSelect('+ ("r" + id + i ) +')">'; }
+            }
+            if(srArk > 0 ){
+                for(let i = 1; i <= srArk; ++i){ ark += '<img id="sr'+ (id + i) +'" src="./ark/sr/'+ i +'.png" onclick="fncArkSelect('+ ("sr" + id + i) +')">'; }
+            }            
+            if(ssrArk > 0 ){
+                for(let i = 1; i <= ssrArk; ++i){ ark += '<img id="ssr'+ (id + i) +'" src="./ark/ssr/'+ i +'.png" onclick="fncArkSelect('+ ("ssr" + id + i) +')">'; }
+            }
+            if(urArk > 0 ){
+                for(let i = 1; i <= urArk; ++i){ ark += '<img id="ur'+ (id + i) +'" src="./ark/ur/'+ i +'.png" onclick="fncArkSelect('+ ("ur" + id + i) +')">'; }
+            }
+            if(lrArk > 0 ){                
+                for(let i = 1; i <= lrArk; ++i){ ark += '<img id="lr'+ (id + i) +'" src="./ark/lr/'+ i +'.png" onclick="fncArkSelect('+ ("lr" + id+ i) +')">'; }
+            }
+
+            div_unit.insertAdjacentHTML('beforeend', unit);
+            div_ark.insertAdjacentHTML('beforeend', ark);   
+        }
+
+    </script>
+</head>
+<body style="background-color: black;">
+    <div id="header">
+        <div>
+            <h2>LastCloudia Check List</h2>                        
+            <p>Created by 반갑다친구야</p>
+            <p>캐릭터 : 
+                <span id="currUnit">0</span>
+                <span> / </span>
+                <span id="maxUnit"></span>
+            </p>
+            <p>아크 : 
+                <span id="currArk">0</span>
+                <span> / </span>
+                <span id="maxArk"></span>
+            </p>
+            <div style="margin-bottom: 10px;"><button onclick="fncUnitAllSelect(this)">캐릭터 전체 선택</button></div>
+            <div><button onclick="fncArkAllSelect(this, '#ark')">아크 전체 선택</button></div>            
+        </div>
+    </div>
+    <div id="wrapper">
+        <div id="unit">
+        </div>
+        <div id="ark">     
+        </div>
+    </div>
+</body>
+</html>
