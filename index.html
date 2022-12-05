@@ -86,7 +86,7 @@
             isFlag = selectUnitFlag >= 1;
             document.querySelectorAll("#unit > img").forEach(function(item){ item.style.opacity = isFlag ? 0.3 : 1; })             
             selectUnitFlag = isFlag ? 0 : 1;     
-            txt = "캐릭터 전체" + (isFlag ? "해제" : "선택");            
+            txt = "캐릭터 전체 " + (isFlag ? "해제" : "선택");            
             target.innerText = txt;
             document.querySelector("#currUnit").innerHTML = isFlag ? 0 : totUnit;
             return false;
@@ -96,7 +96,7 @@
             isFlag = selectArkFlag >= 1;
             document.querySelectorAll("#ark > img").forEach(function(item){ item.style.opacity = isFlag ? 0.3 : 1; })             
             selectArkFlag = isFlag ? 0 : 1;     
-            txt = "아크 전체" + (isFlag ? "해제" : "선택");            
+            txt = "아크 전체 " + (isFlag ? "해제" : "선택");            
             target.innerText = txt;
             document.querySelector("#currArk").innerHTML = isFlag ? 0 : maxArkCnt;
             return false;
@@ -151,7 +151,7 @@
         <div>
             <h2>LastCloudia Check List</h2>                        
             <p>Created by 반갑다친구야</p>
-            <p>CSS, 모바일 UI 안했으니 PC로 보는걸 그나마 추천 합니다.</p>                                
+            <p>CSS, 모바일 UI 안 했으니 PC로 보는걸 그나마 추천 합니다.</p>                                
         </div>
     </div>
     <div id="wrapper">
