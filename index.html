@@ -40,21 +40,23 @@
         button{ height: 35px; font-size: 18px; }
     </style>
     <script>        
+        const nomalUnitCnt = 26;
+        const limitUnitCnt = 0;
+        const collabUnitCnt = 0;
+        const monsterCnt = 10;;
+        const rArk = 24;
+        const srArk = 22;
+        const ssrArk = 19;
+        const urArk = 0;
+        const lrArk = 0;
+        const maxUnitCnt = nomalUnitCnt + limitUnitCnt + collabUnitCnt + monsterCnt;
+        const maxArkCnt = rArk + srArk + ssrArk + urArk + lrArk;        
         let isFlag = false;
         let isCurrOpacity = false;
         let selectUnitFlag = 0;
         let selectArkFlag = 0;        
         let currUnitCnt = 0;
-        let currArkCnt = 0;
-        let maxUnitCnt = 26;
-        let maxMonsterCnt = 10;
-        let totUnit = maxUnitCnt + maxMonsterCnt;
-        let rArk = 24;
-        let srArk = 22;
-        let ssrArk = 19;
-        let urArk = 0;
-        let lrArk = 0;        
-        let maxArkCnt = rArk + srArk + ssrArk + urArk + lrArk;
+        let currArkCnt = 0;        
         let unit = "";
         let ark = "";
         let arkClass = "";
@@ -76,8 +78,7 @@
             isCurrOpacity = window.getComputedStyle(target).opacity >= 1;                        
             currArkCnt = Number(document.querySelector("#currArk").innerHTML);
             target.style.opacity = isCurrOpacity ? 0.3 : 1;        
-            document.querySelector("#currArk").innerHTML = isCurrOpacity ? currArkCnt-1 : currArkCnt+1;
-            
+            document.querySelector("#currArk").innerHTML = isCurrOpacity ? currArkCnt-1 : currArkCnt+1;            
             return false;
         }
 
@@ -87,7 +88,7 @@
             selectUnitFlag = isFlag ? 0 : 1;     
             txt = "캐릭터 전체 " + (!isFlag ? "해제" : "선택");            
             target.innerText = txt;
-            document.querySelector("#currUnit").innerHTML = isFlag ? 0 : totUnit;
+            document.querySelector("#currUnit").innerHTML = isFlag ? 0 : maxUnitCnt;
             return false;
         }
 
@@ -104,40 +105,21 @@
         function fncLoad(){
             const div_unit = document.querySelector("#unit");
             const div_ark = document.querySelector("#ark");
-            document.querySelector("#maxUnit").innerHTML = totUnit;
+            document.querySelector("#maxUnit").innerHTML = maxUnitCnt;
             document.querySelector("#maxArk").innerHTML = maxArkCnt;
-
             // Unit =============================================================================================================================================
-            for(let i = 1; i <= maxUnitCnt + maxMonsterCnt; i++){        
-                if(i > maxUnitCnt){ 
-                    for(let j = 1; j <= maxMonsterCnt; j++){            
-                        id = "um" + j;                             
-                        unit  += '<img id="' + id +'" src="./unit/a'+ j +'.png" onclick="fncUnitSelect('+ id +')">';  
-                    }
-                    break;
-                }
-                else{ 
-                    id = "u" + i;
-                    unit  += '<img id="' + id +'" src="./unit/'+ i +'.png" onclick="fncUnitSelect('+ id +')">'; 
-                }
-            }
+            id = "Unit";        
+            if(nomalUnitCnt  > 0 ) { for(let i = 1; i <= nomalUnitCnt; ++i)  { unit += '<img id="n'  + (id + i) +'" src="./unit/nomal/'  + i + '.png" onclick="fncUnitSelect(' + ("n" + id + i )+ ')">'; }}
+            if(limitUnitCnt  > 0 ) { for(let i = 1; i <= limitUnitCnt; ++i)  { unit += '<img id="l' + (id + i) +'" src="./unit/limit/'   + i + '.png" onclick="fncUnitSelect(' + ("l" + id + i) + ')">'; }}            
+            if(collabUnitCnt > 0 ) { for(let i = 1; i <= collabUnitCnt; ++i) { unit += '<img id="c' + (id + i) +'" src="./unit/collab/'  + i + '.png" onclick="fncUnitSelect(' + ("c" + id + i) + ')">'; }}
+            if(monsterCnt > 0 )    { for(let i = 1; i <= monsterCnt; ++i)    { unit += '<img id="m' + (id + i) +'" src="./unit/monster/' + i + '.png" onclick="fncUnitSelect(' + ("m" + id + i) + ')">'; }}
             // Ark =============================================================================================================================================
             id = "Ark";
-            if(rArk > 0 ){                
-                for(let i = 1; i <= rArk; ++i){ ark += '<img id="r'+ (id + i) +'" src="./ark/r/'+ i +'.png" onclick="fncArkSelect('+ ("r" + id + i ) +')">'; }
-            }
-            if(srArk > 0 ){
-                for(let i = 1; i <= srArk; ++i){ ark += '<img id="sr'+ (id + i) +'" src="./ark/sr/'+ i +'.png" onclick="fncArkSelect('+ ("sr" + id + i) +')">'; }
-            }            
-            if(ssrArk > 0 ){
-                for(let i = 1; i <= ssrArk; ++i){ ark += '<img id="ssr'+ (id + i) +'" src="./ark/ssr/'+ i +'.png" onclick="fncArkSelect('+ ("ssr" + id + i) +')">'; }
-            }
-            if(urArk > 0 ){
-                for(let i = 1; i <= urArk; ++i){ ark += '<img id="ur'+ (id + i) +'" src="./ark/ur/'+ i +'.png" onclick="fncArkSelect('+ ("ur" + id + i) +')">'; }
-            }
-            if(lrArk > 0 ){                
-                for(let i = 1; i <= lrArk; ++i){ ark += '<img id="lr'+ (id + i) +'" src="./ark/lr/'+ i +'.png" onclick="fncArkSelect('+ ("lr" + id+ i) +')">'; }
-            }
+            if(rArk   > 0 ) { for(let i = 1; i <= rArk; ++i)   { ark += '<img id="r'   + (id + i) +'" src="./ark/r/'   + i + '.png" onclick="fncArkSelect(' + ("r"   + id + i ) + ')">';  }}
+            if(srArk  > 0 ) { for(let i = 1; i <= srArk; ++i)  { ark += '<img id="sr'  + (id + i) +'" src="./ark/sr/'  + i + '.png" onclick="fncArkSelect(' + ("sr"  + id + i)  + ')">';  }}            
+            if(ssrArk > 0 ) { for(let i = 1; i <= ssrArk; ++i) { ark += '<img id="ssr' + (id + i) +'" src="./ark/ssr/' + i + '.png" onclick="fncArkSelect(' + ("ssr" + id + i)  + ')">';  }}
+            if(urArk  > 0 ) { for(let i = 1; i <= urArk; ++i)  { ark += '<img id="ur'  + (id + i) +'" src="./ark/ur/'  + i + '.png" onclick="fncArkSelect(' + ("ur"  + id + i)  + ')">';  }}
+            if(lrArk  > 0 ) { for(let i = 1; i <= lrArk; ++i)  { ark += '<img id="lr'  + (id + i) +'" src="./ark/lr/'  + i + '.png" onclick="fncArkSelect(' + ("lr"  + id+ i)   + ')">';  }}
 
             div_unit.insertAdjacentHTML('beforeend', unit);
             div_ark.insertAdjacentHTML('beforeend', ark);   
@@ -150,7 +132,7 @@
         <div>
             <h2>LastCloudia CheckList</h2>                        
             <p>Created by 반갑다친구야</p>
-            <p>CSS, 모바일 UI 안 했으니 PC로 보는걸 그나마 추천 합니다.</p>                                
+            <p>PC로 사용하시는걸. 그나마 추천합니다.</p>                                
         </div>
     </div>
     <div id="wrapper">
