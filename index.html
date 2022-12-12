@@ -4,6 +4,11 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=1280">
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.6.1.min.js" integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ=" crossorigin="anonymous"></script>
+	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+
     <title>LastCloudia-KR-CheckList</title>
     <style>
         html,body{
@@ -16,7 +21,7 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            padding: 60px;
+            padding: 90px;
             height: 5%;
         }
         #wrapper{
@@ -36,95 +41,39 @@
             height: 80px;
             opacity: 0.3;
         }
-        h2, h3, p, span{ color: white; }
-        button{ height: 35px; font-size: 18px; }
+        h2, h3, p, span, a{ color: white; }
+        a, span{font-size: 20px;}
     </style>
     <script>        
         const nomalUnitCnt = 26;
         const limitUnitCnt = 2;
         const collabUnitCnt = 0;
         const monsterCnt = 10;;
-
         const rlArk = 0;
         const rcArk = 0;
         const rArk = 24;
-
         const srArk = 22;
         const srlArk = 0;
         const srcArk = 0;
-
         const ssrArk = 19;
         const ssrlArk = 0;
         const ssrcArk = 0;
-
         const urArk = 0;
         const lrArk = 0;
-
         const maxUnitCnt = nomalUnitCnt + limitUnitCnt + collabUnitCnt + monsterCnt;
         const maxArkCnt = rArk + rlArk + rcArk + srArk + srlArk + srcArk + ssrArk + ssrlArk + ssrcArk + urArk + lrArk;     
         const unitInfo = {
-            nomal : 
-            {
-                rate : "nomal"
-                ,cnt : nomalUnitCnt
-                ,title : "일반"            
-            }, 
-            limit : 
-            {
-                rate : "limit"
-                ,cnt : limitUnitCnt
-                ,title : "한정"            
-            }, 
-            collab : 
-            {
-               rate : "collab"
-               ,cnt : collabUnitCnt
-               ,title : "콜라보"            
-            }, 
-            monster : 
-            {
-               rate : "monster"
-               ,cnt : monsterCnt
-               ,title : "몬스터"            
-            }, 
+            collab :  { rate : "collab",  cnt : collabUnitCnt, title : "콜라보" }, 
+            limit  :  { rate : "limit",   cnt : limitUnitCnt,  title : "한정"   }, 
+            nomal  :  { rate : "nomal",   cnt : nomalUnitCnt,  title : "일반"   }, 
+            monster : { rate : "monster", cnt : monsterCnt,    title : "몬스터" }, 
         };
         const arkInfo = {
-            lr : 
-            {
-               rate : "lr"
-               ,cnt : lrArk
-               ,title : "LR 등급"            
-            }, 
-            ur : 
-            {
-               rate : "ur"
-               ,cnt : urArk
-               ,title : "UR 등급"            
-            }, 
-            ssr : 
-            {
-               rate : "ssr"
-               ,cnt : ssrArk
-               ,limitCnt : ssrlArk
-               ,collabCnt : ssrcArk
-               ,title : "SSR 등급"            
-            }, 
-            sr : 
-            {
-                rate : "sr"
-                ,cnt : srArk
-                ,limitCnt : srlArk
-                ,collabCnt : srcArk
-                ,title : "SR 등급"            
-            }, 
-            r : 
-            {
-                rate : "r"
-                ,cnt : rArk
-                ,limitCnt : rlArk
-                ,collabCnt : rcArk 
-                ,title : "R 등급"            
-            }
+            lr :  { rate : "lr",  cnt : lrArk, title : "LR 등급"}, 
+            ur :  { rate : "ur",  cnt : urArk, title : "UR 등급"}, 
+            ssr : { rate : "ssr", cnt : ssrArk, limitCnt : ssrlArk, collabCnt : ssrcArk, title : "SSR 등급" }, 
+            sr :  { rate : "sr",  cnt : srArk,  limitCnt : srlArk,  collabCnt : srcArk,  title : "SR 등급"  }, 
+            r :   { rate : "r",   cnt : rArk ,  limitCnt : rlArk,   collabCnt : rcArk,   title : "R 등급"   }
         };
            
         let selectUnitFlag = 0;
@@ -139,40 +88,49 @@
             const div_ark = document.querySelector("#ark");
             document.querySelector("#maxUnit").innerHTML = maxUnitCnt;
             document.querySelector("#maxArk").innerHTML = maxArkCnt;            
-
-            for(let key in unitInfo){ unitHtml += fncCreateUnitHtml(unitInfo[key]); }
-            for(let key in arkInfo) { arkHtml += fncCreateArkHtml(arkInfo[key]); }
+            let index = 0;
+            for(let key in unitInfo){ unitHtml += fncCreateUnitHtml(unitInfo[key], index); index++; }
+            index = 0;
+            for(let key in arkInfo) { arkHtml += fncCreateArkHtml(arkInfo[key], index); index++; }
 
             div_unit.insertAdjacentHTML('beforeend', unitHtml);
             div_ark.insertAdjacentHTML('beforeend', arkHtml);   
         }
 
-        function fncCreateUnitHtml(item){                        
+        function fncCreateUnitHtml(item, index){                        
             let returnHtml = "";   
             if(item.cnt > 0){
-                returnHtml += "<div><p>■■■■■■■" + item.title + "■■■■■■■</p>";
-                for(let i = 1; i <= item.cnt; ++i){ returnHtml += '<img id="unit'+(item.rate + i)+'" src="./unit/'+item.rate+'/'+i+'.png" onclick="fncSelect(unit'+(item.rate + i)+',true)">'; }
-                returnHtml += "</div>";
+                returnHtml += '<div class="container-fluid">'+
+                                '<div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">'+
+                                    '<div class="panel panel-default">'+
+                                        '<div class="panel-heading mt-3 mb-3" role="tab" style="border-bottom: 3px solid white;">'+
+                                            '<a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapse'+ index +'" aria-expanded="false">'+item.title+'</a>'+
+                                        '</div>'+
+                                    '<div id="collapse'+ index+ '" class="panel-collapse collapse show" role="tabpanel">'+
+                                '<div class="panel-body">';                                
+                for(let i = 1; i <= item.cnt; ++i){ 
+                    returnHtml += '<img id="unit'+(item.rate + i)+'" src="./unit/'+item.rate+'/'+i+'.png" onclick="fncSelect(unit'+(item.rate + i)+',true)">'; 
+                }
+                returnHtml += '</div></div></div></div></div>';
             }         
             return returnHtml;
         }
 
-        function fncCreateArkHtml(item){            
+        function fncCreateArkHtml(item, index){            
             let returnHtml = "";   
             if(item.cnt > 0){
-                returnHtml += "<div><p>■■■■■■■" + item.title + "■■■■■■■</p>";
+                returnHtml += '<div class="container-fluid">'+
+                                '<div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">'+
+                                    '<div class="panel panel-default">'+
+                                        '<div class="panel-heading mt-3 mb-3" role="tab" style="border-bottom: 3px solid white;">'+
+                                            '<a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseA'+ index +'" aria-expanded="false">'+item.title+'</a>'+
+                                        '</div>'+
+                                    '<div id="collapseA'+ index+ '" class="panel-collapse collapse show" role="tabpanel">'+
+                                '<div class="panel-body">';   
                 for(let i = 1; i <= item.cnt; ++i){ returnHtml += '<img id="ark'+(item.rate+ i)+'" src="./ark/'+ item.rate +'/'+i+'.png" onclick="fncSelect('+("ark"+item.rate+i)+',false)">' }
-                if(item.limitCnt > 0){
-                    returnHtml += "<div><p>■■■■■■■" + item.title + " 한정 ■■■■■■■</p>";
-                    for(let i = 1; i <= item.limitCnt; ++i){ returnHtml += '<img id="arkl'+(item.rate+ i)+'" src="./ark/'+ item.rate +'/l/'+i+'.png" onclick="fncSelect('+("arkl"+item.rate+i)+',false)">' }
-                    returnHtml += "</div>";
-                }
-                if(item.collabCnt > 0){
-                    returnHtml += "<div><p>■■■■■■■" + item.title + " 콜라보 ■■■■■■■</p>";
-                    for(let i = 1; i <= item.collabCnt; ++i){ returnHtml += '<img id="arkc'+(item.rate+i)+'" src="./ark/'+ item.rate +'/c/'+i+'.png" onclick="fncSelect('+("arkc"+item.rate+i) + ',false)">' }
-                    returnHtml += "</div>";
-                }
-                returnHtml += "</div>";
+                if(item.limitCnt > 0){ for(let i = 1; i <= item.limitCnt; ++i){ returnHtml += '<img id="arkl'+(item.rate+ i)+'" src="./ark/'+ item.rate +'/l/'+i+'.png" onclick="fncSelect('+("arkl"+item.rate+i)+',false)">' }}
+                if(item.collabCnt > 0){ for(let i = 1; i <= item.collabCnt; ++i){ returnHtml += '<img id="arkc'+(item.rate+i)+'" src="./ark/'+ item.rate +'/c/'+i+'.png" onclick="fncSelect('+("arkc"+item.rate+i) + ',false)">' }}
+                returnHtml += '</div></div></div></div></div>';
             }
             return returnHtml;
         }
@@ -204,30 +162,40 @@
         <div>
             <h2>LastCloudia KR CheckList</h2>                        
             <p>Created by 반갑다친구야</p>
-            <p>PC로 사용하시는걸. 그나마 추천합니다.</p>                                
+            <p>PC로 사용하시는걸. 그나마 추천합니다.</p>
+            <ul class="nav nav-tabs">
+                <li class="nav-item">
+                  <a class="nav-link active" data-toggle="tab" href="#unit">캐릭터</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" data-toggle="tab" href="#ark">아크</a>
+                </li>
+              </ul>                                
         </div>
     </div>
     <div id="wrapper">
-        <div id="unit">            
-            <div style="margin-bottom: 10px;">
-                <button onclick="fncAllSelect(this, 'unit')">전체 선택</button>
-                <p> 
-                    <span id="currunit">0</span>
-                    <span> / </span>
-                    <span id="maxUnit"></span>
-                </p>
+          <div class="tab-content">
+            <div class="tab-pane fade show active" id="unit">
+                <button class="btn btn-light mb-2 ml-2" onclick="fncAllSelect(this, 'unit')">전체 선택</button>
+                <div style="margin-bottom: 10px;">
+                    <p style="margin-left: 15px;"> 
+                        <span id="currunit">0</span>
+                        <span> / </span>
+                        <span id="maxUnit"></span>
+                    </p>
+                </div>
             </div>
-        </div>
-        <div id="ark">     
-            <div style="margin-bottom: 10px;">
-                <button onclick="fncAllSelect(this, 'ark')">전체 선택</button>
-                <p> 
-                    <span id="currark">0</span>
-                    <span> / </span>
-                    <span id="maxArk"></span>
-                </p>
-            </div>    
-        </div>
+            <div class="tab-pane fade" id="ark">
+                <button class="btn btn-light mb-2 ml-2" onclick="fncAllSelect(this, 'ark')">전체 선택</button>
+                <div style="margin-bottom: 10px;">                    
+                    <p style="margin-left: 15px;"> 
+                        <span id="currark">0</span>
+                        <span> / </span>
+                        <span id="maxArk"></span>
+                    </p>
+                </div>    
+            </div>
+          </div>
     </div>
 </body>
 </html>
