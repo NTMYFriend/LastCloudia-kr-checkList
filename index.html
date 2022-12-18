@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=1280">
+    <meta name="viewport" content="width=1280">  
 
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
     <link rel="stylesheet" type="text/css" href="./css/common.css">
@@ -13,7 +13,7 @@
     <title>LastCloudia-KR-CheckList</title>
     <script>        
         const nomalUnitCnt = 26;
-        const limitUnitCnt = 2;
+        const limitUnitCnt = 3;
         const collabUnitCnt = 0;
         const monsterCnt = 10;;
         const rlArk = 0;
@@ -23,7 +23,7 @@
         const srlArk = 0;
         const srcArk = 0;
         const ssrArk = 19;
-        const ssrlArk = 0;
+        const ssrlArk = 1;
         const ssrcArk = 0;
         const urArk = 0;
         const lrArk = 0;
@@ -64,17 +64,23 @@
             div_ark.insertAdjacentHTML('beforeend', arkHtml);   
         }
 
-        function fncCreateUnitHtml(item, index){                        
+        function fncCreateTitleHtml(index, title){
             let returnHtml = "";   
-            if(item.cnt > 0){
-                returnHtml += '<div class="container-fluid">'+
+            returnHtml += '<div class="container-fluid">'+
                                 '<div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">'+
                                     '<div class="panel panel-default">'+
                                         '<div class="panel-heading mt-3 mb-3" role="tab" style="border-bottom: 3px solid white;">'+
-                                            '<a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapse'+ index +'" aria-expanded="false">'+item.title+'</a>'+
+                                            '<a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapse'+ index +'" aria-expanded="false">'+title+'</a>'+                                            
                                         '</div>'+
                                     '<div id="collapse'+ index+ '" class="panel-collapse collapse show" role="tabpanel">'+
-                                '<div class="panel-body">';                                
+                                '<div class="panel-body">'; 
+            return returnHtml;                                    
+        }
+
+        function fncCreateUnitHtml(item, index){                        
+            let returnHtml = "";   
+            if(item.cnt > 0){
+                returnHtml += fncCreateTitleHtml(index, item.title);                            
                 for(let i = 1; i <= item.cnt; ++i){ 
                     returnHtml += '<img id="unit'+(item.rate + i)+'" src="./unit/'+item.rate+'/'+i+'.png" onclick="fncSelect(unit'+(item.rate + i)+',true)">'; 
                 }
@@ -86,14 +92,7 @@
         function fncCreateArkHtml(item, index){            
             let returnHtml = "";   
             if(item.cnt > 0){
-                returnHtml += '<div class="container-fluid">'+
-                                '<div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">'+
-                                    '<div class="panel panel-default">'+
-                                        '<div class="panel-heading mt-3 mb-3" role="tab" style="border-bottom: 3px solid white;">'+
-                                            '<a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseA'+ index +'" aria-expanded="false">'+item.title+'</a>'+
-                                        '</div>'+
-                                    '<div id="collapseA'+ index+ '" class="panel-collapse collapse show" role="tabpanel">'+
-                                '<div class="panel-body">';   
+                returnHtml += fncCreateTitleHtml("A" + index, item.title); 
                 for(let i = 1; i <= item.cnt; ++i){ returnHtml += '<img id="ark'+(item.rate+ i)+'" src="./ark/'+ item.rate +'/'+i+'.png" onclick="fncSelect('+("ark"+item.rate+i)+',false)">' }
                 if(item.limitCnt > 0){ for(let i = 1; i <= item.limitCnt; ++i){ returnHtml += '<img id="arkl'+(item.rate+ i)+'" src="./ark/'+ item.rate +'/l/'+i+'.png" onclick="fncSelect('+("arkl"+item.rate+i)+',false)">' }}
                 if(item.collabCnt > 0){ for(let i = 1; i <= item.collabCnt; ++i){ returnHtml += '<img id="arkc'+(item.rate+i)+'" src="./ark/'+ item.rate +'/c/'+i+'.png" onclick="fncSelect('+("arkc"+item.rate+i) + ',false)">' }}
