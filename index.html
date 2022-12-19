@@ -36,11 +36,11 @@
             monster : { rate : "monster", cnt : monsterCnt,    title : "몬스터" }, 
         };
         const arkInfo = {
-            lr :  { rate : "lr",  cnt : lrArk, title : "LR 등급"}, 
-            ur :  { rate : "ur",  cnt : urArk, title : "UR 등급"}, 
-            ssr : { rate : "ssr", cnt : ssrArk, limitCnt : ssrlArk, collabCnt : ssrcArk, title : "SSR 등급" }, 
-            sr :  { rate : "sr",  cnt : srArk,  limitCnt : srlArk,  collabCnt : srcArk,  title : "SR 등급"  }, 
-            r :   { rate : "r",   cnt : rArk ,  limitCnt : rlArk,   collabCnt : rcArk,   title : "R 등급"   }
+            ur :  { rate : "ur",  cnt : urArk, title : "UR"}, 
+            lr :  { rate : "lr",  cnt : lrArk, title : "LR"}, 
+            ssr : { rate : "ssr", cnt : ssrArk, limitCnt : ssrlArk, collabCnt : ssrcArk, title : "SSR" }, 
+            sr :  { rate : "sr",  cnt : srArk,  limitCnt : srlArk,  collabCnt : srcArk,  title : "SR"  }, 
+            r :   { rate : "r",   cnt : rArk ,  limitCnt : rlArk,   collabCnt : rcArk,   title : "R"   }
         };
            
         let selectUnitFlag = 0;
@@ -70,7 +70,7 @@
                                 '<div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">'+
                                     '<div class="panel panel-default">'+
                                         '<div class="panel-heading mt-3 mb-3" role="tab" style="border-bottom: 3px solid white;">'+
-                                            '<a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapse'+ index +'" aria-expanded="false">'+title+'</a>'+                                            
+                                            '<a class="brancht" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapse'+ index +'" aria-expanded="false">'+title+'</a>'+                                            
                                         '</div>'+
                                     '<div id="collapse'+ index+ '" class="panel-collapse collapse show" role="tabpanel">'+
                                 '<div class="panel-body">'; 
@@ -126,7 +126,7 @@
 <body style="background-color: black;">
     <div id="header">
         <div>
-            <h2>LastCloudia KR CheckList</h2>                        
+            <p class="brancht">LastCloudia KR CheckList</p>                        
             <p>Created by 반갑다친구야</p>
             <ul class="nav nav-tabs">
                 <li class="nav-item">
